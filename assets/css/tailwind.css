@@ -1,9 +1,16 @@
+@import '~/assets/css/_variable.css';
+
+/*在你的主 CSS 文件中通过 @tailwind 指令添加每一个 Tailwind 功能模块。*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 div{
     padding: 3px;
 }
 a {
    text-decoration: none;
-   color: $linkColor;
+   color: var(--link-color);
 }
 .app-box{
     margin: 5px;

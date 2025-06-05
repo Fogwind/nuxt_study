@@ -1,9 +1,6 @@
 <template>
     <div>
-        <nav>
-            导航栏
-            <img class="avatar" src="~/assets/avatar.jpg" alt="avatar" />
-        </nav>
+       <NavBar></NavBar>
         <!--插槽-->
         <slot />
     </div>
