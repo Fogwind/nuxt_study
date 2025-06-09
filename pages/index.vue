@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col gap-2">
-        <h1>Index Page</h1>
+        <h1>Index Page{{ isLogin }}</h1>
         <div>
             <NButton
                 text
@@ -9,6 +9,9 @@
                 type="primary"
             >hello</NButton>
         </div>
+        <NuxtLink class="text-lg" to="/login">
+                登录
+            </NuxtLink>
         <!--处理请求错误-->
         <div v-if="error" class="text-red-300">{{ error.message }}</div>
         <!--处理加载状态-->
@@ -27,6 +30,7 @@
     </div>
 </template>
 <script setup lang="ts">
+const isLogin = useLogin();
 // const posts = await $fetch("/api/posts");
 const page = ref(1);
 /**

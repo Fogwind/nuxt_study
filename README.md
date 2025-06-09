@@ -116,7 +116,7 @@ Nuxt 项目下~/server/api目录下的文件会被注册为服务端 API，并�
 
 > 关于markdown元数据：https://blog.51cto.com/ghostwritten/13854266
 
-如果在 Vue 组件的设置函数中使用 $fetch 而不通过 useAsyncData 包裹它，会导致数据被请求两次：第一次在服务器上，然后在客户端双重渲染期间再次请求，因为 $fetch 不会将状态从服务器转移到客户端。因此，由于客户端必须再次获取数据，所以 fetch 会在两个端执行。建议使用 useFetch 或 useAsyncData + $fetch 来防止在获取组件数据时重复请求。
+如果在 Vue 组件的设置函数中使用 $fetch 而不通过 useAsyncData 包裹它，会导致数据被请求两次：第一次在服务器上，然后在客户端双重渲染期间再次请求，因为 $fetch 不会将状态从服务器转移到客户端。因此，由于客户端必须再次获取数据，所以 $fetch 会在两个端执行。建议使用 useFetch 或 useAsyncData + $fetch 来防止在获取组件数据时重复请求。
 ```vue
 <script setup lang="ts">
 // 在 SSR 期间，数据会被请求两次，一次在服务器上，一次在客户端。
