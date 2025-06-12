@@ -8,7 +8,8 @@
     </div>
 </template>
 <script setup lang="ts">
-
-const count = useCounter();
+import { useCounter } from '~/store/counter';
+const store = useCounter();
+const {value: count} = storeToRefs(store);
 const count2 = ref(1);
 </script>

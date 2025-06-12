@@ -18,8 +18,11 @@
  * useState 创建的counter 在水合时的值与在服务端渲染时的值是一致的；
  * ref 创建的counterRef 在服务端渲染时和水合时的值是各自独立的，不保证一致；
  */
+
+import { useCounter } from '~/store/counter';
+const store = useCounter();
 const counter = useState("counter", () => Math.round(Math.random() * 1000));
 const counterRef = ref(Math.round(Math.random()*1000));
 
-const count = useCounter();
+const {value: count} = storeToRefs(store);
 </script>

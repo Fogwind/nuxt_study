@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col gap-2">
-        <h1>Index Page{{ isLogin }}</h1>
+        <h1>Index Page -- islogin:{{ isLogin }}</h1>
         <div>
             <NButton
                 text
@@ -30,7 +30,9 @@
     </div>
 </template>
 <script setup lang="ts">
-const isLogin = useLogin();
+import { useUser } from '~/store/user';
+const store = useUser();
+const {isLogin} = storeToRefs(store);
 // const posts = await $fetch("/api/posts");
 const page = ref(1);
 /**

@@ -14,14 +14,16 @@
     </div>
 </template>
 <script setup lang="ts">
+import {useUser} from '~/store/user';
 const route = useRoute();// 返回当前路由
 // const {title, content} = await $fetch(`/api/detail/${router.params.id}`);
 const {data, status} = await useAsyncData(function() {
-    return $fetch(`/api/detail/${route.params.id}`);
+    return $fetch('/api/detail/'+route.params.id);
 });
 
 const value = useState('comment', () => '');
-const isLogin = useLogin();
+const store = useUser();
+const {isLogin} = storeToRefs(store);
 const router = useRouter(); // 返回Vue的路由实例，即vue-router: https://router.vuejs.org/zh/guide/
 const onSubmit = () => {
     if(isLogin.value) {
