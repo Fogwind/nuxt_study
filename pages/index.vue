@@ -2,16 +2,11 @@
     <div class="flex items-center flex-col gap-2">
         <h1>Index Page -- islogin:{{ isLogin }}</h1>
         <div>
-            <NButton
-                text
-                tag="a"
-                href="/hello"
-                type="primary"
-            >hello</NButton>
-        </div>
-        <NuxtLink class="text-lg" to="/login">
-                登录
+            <NuxtLink to="/hello" class="n-link-base">
+                hello
             </NuxtLink>
+        </div>
+        <NuxtLink class="text-lg" to="/login"> 登录 </NuxtLink>
         <!--处理请求错误-->
         <div v-if="error" class="text-red-300">{{ error.message }}</div>
         <!--处理加载状态-->
@@ -24,9 +19,11 @@
                 <p class="text-slate-500">发布于：{{ post.date }}</p>
             </div>
         </div>
-
-        <NButton @click="prev">Prev</NButton>
-        <NButton @click="next">Next</NButton>
+        <NuxtLink class="text-lg" :to="`/detail/etr`">测试文章不存在</NuxtLink>
+        <div>
+            <NButton @click="prev">Prev</NButton>
+            <NButton @click="next">Next</NButton>
+        </div>
     </div>
 </template>
 <script setup lang="ts">

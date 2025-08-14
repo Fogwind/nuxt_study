@@ -133,3 +133,25 @@ const { data } = await useFetch('/api/item')
 
 - useFetch 组合函数旨在在设置方法中调用或直接在生命周期钩子的函数顶层调用，否则您应使用 $fetch 方法。
 - useFetch 的返回值中关于请求状态，开始没有status字段，只有pending字段；status字段是后来加的。导致pending和status的作用有些重合了。为了不引起大的破坏，官方不打算在Nuxt3中删除pending，计划在Nuxt4中删除pending。
+
+
+## 关于传递错误详细信息到客户端
+[在客户端无法获取错误详细信息的issue](https://github.com/nuxt/nuxt/issues/12885)
+[修复无法在客户端获取错误详细信息的说明](https://github.com/nuxt/framework/pull/8521)
+
+## 关于错误处理
+https://nuxt.zhcndoc.com/docs/guide/directory-structure/error
+https://nuxt.zhcndoc.com/docs/getting-started/error-handling
+https://nuxt.zhcndoc.com/docs/api/utils/create-error
+
+错误分服务端错误和客户端错误
+
+服务端错误默认跳转500页面。
+
+https://github.com/nuxt/nuxt/issues/22109 提到在server api中抛出使用createError创建的错误，无法被任何钩子（包括错误处理钩子）函数捕获。
+
+
+http://github.com/nuxt/nuxt/releases?page=1
+
+关于在server api中抛出错误，文档原文是这么说的：
+> 在 API 路由中，建议通过传入带有简短 statusMessage 的对象来使用 createError，因为它可以在客户端访问。否则，传给 API 路由的 createError 的 message 将不会传递到客户端。或者，您可以使用 data 属性将数据传回客户端。无论如何，请始终考虑避免将动态用户输入写入消息，以避免潜在的安全问题。

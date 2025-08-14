@@ -32,5 +32,5 @@ export default defineNuxtConfig({
   ],
   css: [
     'assets/css/tailwind.css' // 引入全局样式
-  ]
+  ],
 })
