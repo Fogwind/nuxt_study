@@ -19,6 +19,10 @@ import type { NuxtError } from '#app';
 import {useUser} from '~/store/user';
 import type { ArticleDetail } from "~/types/api/detail";
 
+definePageMeta({
+    middleware: ['auth']
+});
+
 const route = useRoute();// 返回当前路由
 
 const {data, status, error} = await useFetch<ArticleDetail>('/api/detail/'+route.params.id, {
