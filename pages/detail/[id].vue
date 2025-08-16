@@ -19,18 +19,24 @@ import type { NuxtError } from '#app';
 import {useUser} from '~/store/user';
 import type { ArticleDetail } from "~/types/api/detail";
 
-definePageMeta({
-    middleware: ['auth']
-});
 
 const route = useRoute();// 返回当前路由
+const router = useRouter(); // 返回Vue的路由实例，即vue-router: https://router.vuejs.org/zh/guide/
+
+const store = useUser();
+const {isLogin} = storeToRefs(store);
+
 
 const {data, status, error} = await useFetch<ArticleDetail>('/api/detail/'+route.params.id, {
+    headers: isLogin.value ? {'token': '121212'} : {},// 使用onRequest拦截器设置也可以
     // onRequest({ request, options }) {
     //     // 设置请求头
     //     // 注意，这依赖于 ofetch >= 1.4.0 - 可能需要更新锁文件
-    //     options.headers.set('tttt', '123123');
-    //     console.log('---onRequest---');
+    //     if(isLogin.value) {
+    //         options.headers.set('token', '123123');
+    //     }
+        
+    //     console.log('---onRequest---',isLogin.value);
 
     // },
     // onRequestError({ request, options, error }) {
@@ -41,10 +47,12 @@ const {data, status, error} = await useFetch<ArticleDetail>('/api/detail/'+route
     //     // 处理响应数据
     //     console.log('onResponse',request, response, options);
     // },
-    // onResponseError({ request, response, options }) {
-    //     // 处理响应错误
-    //     console.log('onResponseError',request,response, options);
-    // }
+    onResponseError({ request, response, options }) {
+        // 处理响应错误
+        if(response.status === 401) {
+            router.push('/login?callback=' + route.path);
+        }
+    }
 });
 
 if (error.value) {
@@ -62,9 +70,6 @@ watchEffect(() => {
 
 // 评论区
 const value = useState('comment', () => '');
-const store = useUser();
-const {isLogin} = storeToRefs(store);
-const router = useRouter(); // 返回Vue的路由实例，即vue-router: https://router.vuejs.org/zh/guide/
 const onSubmit = () => {
     if(isLogin.value) {
         value.value = '';
